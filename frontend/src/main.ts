@@ -52,6 +52,9 @@ let activeTab: 'letter' | 'cv' | 'highlights' = 'letter';
 let viewMode: 'formatted' | 'raw' = 'formatted';
 let selectedTone = 'Professional and confident';
 
+// Dynamic API Base URL: Uses relative URL in production or proxy, or VITE_API_URL if set
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+
 // API Key Management (BYOK - Bring Your Own Key)
 const LOCAL_STORAGE_KEY = 'careerforge_gemini_key';
 function getSavedApiKey(): string {
@@ -972,7 +975,7 @@ generateBtn.addEventListener('click', async () => {
   startLoadingProgress();
 
   try {
-    const res = await fetch('http://127.0.0.1:5000/api/generate-application', {
+    const res = await fetch(`${API_BASE_URL}/api/generate-application`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(payload)
