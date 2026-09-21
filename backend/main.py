@@ -53,10 +53,23 @@ class ApplicationPackage(BaseModel):
         description="3 to 5 crisp bullet points highlighting the strongest matches between the candidate's experience and the target job requirements."
     )
 
+from fastapi import FastAPI, HTTPException, Header
+
 @app.post("/api/generate-letter")
 @app.post("/api/generate-application")
-async def generate_application(req: GenerateRequest):
+async def generate_application(
+    req: GenerateRequest,
+    x_gemini_api_key: Optional[str] = Header(None, alias="x-gemini-api-key")
+):
     try:
+        active_api_key = x_gemini_api_key.strip() if x_gemini_api_key and x_gemini_api_key.strip() else os.getenv("GEMINI_API_KEY")
+        if not active_api_key:
+            raise HTTPException(
+                status_code=400,
+                detail="No Gemini API Key provided. Please click 'API Key' in the header to enter your free Google Gemini key."
+            )
+        
+        req_client = genai.Client(api_key=active_api_key)
         # Fallback for old single userProfile field
         candidate_summary = req.summary or req.userProfile or ""
         
@@ -115,7 +128,7 @@ Your task is to generate both an outstanding, ATS-optimized tailored CV/Resume A
         for model_name in models_to_try:
             try:
                 print(f"Attempting generation with {model_name}...")
-                response = client.models.generate_content(
+                response = req_client.models.generate_content(
                     model=model_name,
                     contents=prompt,
                     config=types.GenerateContentConfig(

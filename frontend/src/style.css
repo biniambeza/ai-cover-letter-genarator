@@ -1,28 +1,148 @@
 @import "tailwindcss";
 
-@layer utilities {
-  /* Custom modern scrollbars */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+@layer base {
+  * {
+    border-color: rgba(51, 65, 85, 0.4);
   }
-  ::-webkit-scrollbar-track {
-    background: #0f172a;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 9999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
-  }
+}
+
+/* Background Ambient Glows */
+.ambient-glow-1 {
+  background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 50%);
+}
+
+.ambient-glow-2 {
+  background: radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.10) 0%, transparent 50%);
+}
+
+.ambient-glow-3 {
+  background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.06) 0%, transparent 60%);
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.08) 20%,
+    rgba(255, 255, 255, 0.15) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2.5s infinite;
+}
+
+/* Custom modern scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.6);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.8);
+}
+
+/* Formatted Document Styles */
+.formatted-doc {
+  color: #e2e8f0;
+  line-height: 1.75;
+  font-size: 0.95rem;
+}
+
+.formatted-doc h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  border-bottom: 2px solid rgba(99, 102, 241, 0.4);
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.formatted-doc h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #818cf8;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  padding-bottom: 0.35rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.formatted-doc h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.formatted-doc p {
+  margin-bottom: 0.85rem;
+}
+
+.formatted-doc ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+  space-y: 0.4rem;
+}
+
+.formatted-doc li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.formatted-doc li::before {
+  content: '▸';
+  position: absolute;
+  left: 0.25rem;
+  color: #6366f1;
+  font-weight: bold;
+}
+
+.formatted-doc strong {
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.formatted-doc hr {
+  border-color: rgba(51, 65, 85, 0.5);
+  margin: 1.5rem 0;
 }
 
 /* Print optimizations */
 @media print {
   body {
     background: white !important;
-    color: black !important;
+    color: #111827 !important;
+    font-family: 'Times New Roman', serif !important;
   }
   .no-print {
     display: none !important;
@@ -30,11 +150,34 @@
   .print-only {
     display: block !important;
   }
-  #outputContent {
+  #outputContent, .formatted-doc {
     background: white !important;
-    color: black !important;
+    color: #111827 !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+  .formatted-doc h1 {
+    color: #111827 !important;
+    border-bottom: 2px solid #111827 !important;
+    font-size: 18pt !important;
+  }
+  .formatted-doc h2 {
+    color: #1f2937 !important;
+    border-bottom: 1px solid #9ca3af !important;
+    font-size: 13pt !important;
+  }
+  .formatted-doc h3 {
+    color: #374151 !important;
+    font-size: 11pt !important;
+  }
+  .formatted-doc li::before {
+    content: '•' !important;
+    color: #111827 !important;
+  }
+  .formatted-doc strong {
+    color: #000000 !important;
   }
 }
