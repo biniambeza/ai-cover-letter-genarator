@@ -78,17 +78,17 @@ function parseMarkdown(md: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     // Headers
-    .replace(/^### (.*$)/gim, '<h3 class="text-base font-semibold text-indigo-300 mt-4 mb-1">$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2 class="text-lg font-bold text-indigo-400 border-b border-slate-700/60 pb-1 mt-6 mb-2 tracking-wide uppercase text-xs">$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-extrabold text-white border-b-2 border-indigo-500/50 pb-2 mb-4 tracking-tight">$1</h1>')
+    .replace(/^### (.*$)/gim, '<h3 class="text-sm font-semibold text-indigo-300 print:text-gray-900 mt-4 mb-1">$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2 class="text-xs font-bold text-indigo-400 print:text-black border-b border-slate-700/60 print:border-gray-300 pb-1 mt-6 mb-2 tracking-wider uppercase">$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-extrabold text-white print:text-black border-b-2 border-indigo-500/50 print:border-black pb-2 mb-4 tracking-tight">$1</h1>')
     // Bold & Italics
-    .replace(/\*\*\*(.*?)\*\*\*/gim, '<strong><em>$1</em></strong>')
-    .replace(/\*\*(.*?)\*\*/gim, '<strong class="text-slate-100 font-semibold">$1</strong>')
-    .replace(/\*(.*?)\*/gim, '<em class="text-slate-300">$1</em>')
+    .replace(/\*\*\*(.*?)\*\*\*/gim, '<strong class="text-slate-100 print:text-black font-semibold"><em>$1</em></strong>')
+    .replace(/\*\*(.*?)\*\*/gim, '<strong class="text-slate-100 print:text-black font-semibold">$1</strong>')
+    .replace(/\*(.*?)\*/gim, '<em class="text-slate-300 print:text-gray-700">$1</em>')
     // Horizontal Rule
-    .replace(/^---$/gim, '<hr class="my-4 border-slate-700/60" />')
+    .replace(/^---$/gim, '<hr class="my-4 border-slate-700/60 print:border-gray-300" />')
     // Bullet points
-    .replace(/^\s*[•\-\*]\s+(.*$)/gim, '<li class="flex items-start gap-2 mb-1.5"><span class="text-indigo-400 font-bold select-none mt-0.5">▸</span><span>$1</span></li>');
+    .replace(/^\s*[•\-\*]\s+(.*$)/gim, '<li class="flex items-start gap-2 mb-1.5"><span class="text-indigo-400 print:text-black font-bold select-none mt-0.5">▸</span><span class="text-slate-200 print:text-gray-900">$1</span></li>');
 
   // Wrap lists
   html = html.replace(/(<li.*<\/li>)/gims, '<ul class="my-2 space-y-1 pl-1">$1</ul>');
@@ -102,7 +102,7 @@ function parseMarkdown(md: string): string {
       if (trimmed.startsWith('<h') || trimmed.startsWith('<ul') || trimmed.startsWith('<hr')) {
         return trimmed;
       }
-      return `<p class="mb-3 text-slate-300 leading-relaxed text-sm">${trimmed.replace(/\n/g, '<br/>')}</p>`;
+      return `<p class="mb-3 text-slate-300 print:text-gray-900 leading-relaxed text-sm">${trimmed.replace(/\n/g, '<br/>')}</p>`;
     })
     .join('');
 
@@ -147,7 +147,7 @@ app.innerHTML = `
   <div class="relative z-10 min-h-screen flex flex-col">
     
     <!-- Navigation Bar -->
-    <header class="border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-xl sticky top-0 z-40 px-4 sm:px-6 py-3.5 no-print transition-all">
+    <header class="border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-xl sticky top-0 z-40 px-4 sm:px-6 py-3.5 print:hidden transition-all">
       <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
         
         <!-- Brand -->
@@ -198,7 +198,7 @@ app.innerHTML = `
     <main class="max-w-7xl mx-auto w-full p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-start">
       
       <!-- Left Column: Interactive Input Studio -->
-      <section class="lg:col-span-6 flex flex-col gap-5 no-print">
+      <section class="lg:col-span-6 flex flex-col gap-5 print:hidden">
 
         <!-- Card 1: Candidate Identity -->
         <div class="group bg-slate-900/60 backdrop-blur-xl border border-slate-800/90 hover:border-slate-700/80 rounded-2xl p-5 shadow-xl transition-all duration-200">
@@ -347,7 +347,7 @@ app.innerHTML = `
         <div class="bg-slate-900/70 backdrop-blur-xl border border-slate-800/90 rounded-3xl flex flex-col min-h-[700px] shadow-2xl overflow-hidden">
           
           <!-- Studio Top Toolbar -->
-          <div class="border-b border-slate-800/80 bg-slate-950/60 p-3.5 flex flex-wrap items-center justify-between gap-3 no-print">
+          <div class="border-b border-slate-800/80 bg-slate-950/60 p-3.5 flex flex-wrap items-center justify-between gap-3 print:hidden">
             
             <!-- Document Tabs -->
             <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
@@ -445,7 +445,7 @@ app.innerHTML = `
               </div>
 
               <!-- Formatted Mode -->
-              <div id="formattedOutput" class="formatted-doc"></div>
+              <div id="formattedOutput" class="text-slate-200 leading-relaxed text-sm print:text-black"></div>
 
               <!-- Raw Markdown Mode -->
               <div id="rawOutput" class="hidden">
