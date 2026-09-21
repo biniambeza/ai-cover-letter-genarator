@@ -103,27 +103,37 @@ Your task is to generate both an outstanding, ATS-optimized tailored CV/Resume A
    - Provide 3-5 concise bullet points summarizing why the candidate is a strong fit for this specific posting.
 """
 
-        models_to_try = ['gemini-3.5-flash', 'gemini-3.6-flash', 'gemini-flash-latest']
+        models_to_try = [
+            'gemini-3.1-flash-lite',
+            'gemini-3.5-flash-lite',
+            'gemini-3.7-flash',
+            'gemini-3.5-flash'
+        ]
         last_error = None
         data = None
 
         for model_name in models_to_try:
             try:
+                print(f"Attempting generation with {model_name}...")
                 response = client.models.generate_content(
                     model=model_name,
                     contents=prompt,
                     config=types.GenerateContentConfig(
                         response_mime_type='application/json',
                         response_schema=ApplicationPackage,
+                        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
                     ),
                 )
                 data = json.loads(response.text)
+                print(f"Successfully generated application with {model_name}!")
                 break
             except Exception as model_err:
+                print(f"Model {model_name} failed: {model_err}")
                 last_error = model_err
                 continue
 
         if not data:
+            print(f"All models failed. Last error: {last_error}")
             raise HTTPException(status_code=500, detail=f"Failed to generate application: {last_error}")
         return {
             "success": True,
