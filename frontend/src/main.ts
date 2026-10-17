@@ -78,17 +78,17 @@ function parseMarkdown(md: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     // Headers
-    .replace(/^### (.*$)/gim, '<h3 class="text-sm font-semibold text-indigo-300 print:text-gray-900 mt-4 mb-1">$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2 class="text-xs font-bold text-indigo-400 print:text-black border-b border-slate-700/60 print:border-gray-300 pb-1 mt-6 mb-2 tracking-wider uppercase">$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-extrabold text-white print:text-black border-b-2 border-indigo-500/50 print:border-black pb-2 mb-4 tracking-tight">$1</h1>')
+    .replace(/^### (.*$)/gim, '<h3 class="text-sm font-semibold text-emerald-800 print:text-gray-900 mt-4 mb-1">$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2 class="text-xs font-bold text-emerald-700 print:text-black border-b border-emerald-100 pb-1 mt-6 mb-2 tracking-wider uppercase">$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-extrabold text-slate-900 print:text-black border-b-2 border-emerald-500 pb-2 mb-4 tracking-tight">$1</h1>')
     // Bold & Italics
-    .replace(/\*\*\*(.*?)\*\*\*/gim, '<strong class="text-slate-100 print:text-black font-semibold"><em>$1</em></strong>')
-    .replace(/\*\*(.*?)\*\*/gim, '<strong class="text-slate-100 print:text-black font-semibold">$1</strong>')
-    .replace(/\*(.*?)\*/gim, '<em class="text-slate-300 print:text-gray-700">$1</em>')
+    .replace(/\*\*\*(.*?)\*\*\*/gim, '<strong class="text-slate-900 print:text-black font-semibold"><em>$1</em></strong>')
+    .replace(/\*\*(.*?)\*\*/gim, '<strong class="text-slate-900 print:text-black font-semibold">$1</strong>')
+    .replace(/\*(.*?)\*/gim, '<em class="text-slate-600 print:text-gray-700">$1</em>')
     // Horizontal Rule
-    .replace(/^---$/gim, '<hr class="my-4 border-slate-700/60 print:border-gray-300" />')
+    .replace(/^---$/gim, '<hr class="my-4 border-slate-200 print:border-gray-300" />')
     // Bullet points
-    .replace(/^\s*[•\-\*]\s+(.*$)/gim, '<li class="flex items-start gap-2 mb-1.5"><span class="text-indigo-400 print:text-black font-bold select-none mt-0.5">▸</span><span class="text-slate-200 print:text-gray-900">$1</span></li>');
+    .replace(/^\s*[•\-\*]\s+(.*$)/gim, '<li class="flex items-start gap-2 mb-1.5"><span class="text-emerald-600 print:text-black font-bold select-none mt-0.5">▸</span><span class="text-slate-700 print:text-gray-900">$1</span></li>');
 
   // Wrap lists
   html = html.replace(/(<li.*<\/li>)/gims, '<ul class="my-2 space-y-1 pl-1">$1</ul>');
@@ -102,7 +102,7 @@ function parseMarkdown(md: string): string {
       if (trimmed.startsWith('<h') || trimmed.startsWith('<ul') || trimmed.startsWith('<hr')) {
         return trimmed;
       }
-      return `<p class="mb-3 text-slate-300 print:text-gray-900 leading-relaxed text-sm">${trimmed.replace(/\n/g, '<br/>')}</p>`;
+      return `<p class="mb-3 text-slate-700 print:text-gray-900 leading-relaxed text-sm">${trimmed.replace(/\n/g, '<br/>')}</p>`;
     })
     .join('');
 
@@ -115,7 +115,7 @@ function showToast(message: string, icon = '✨') {
   if (!container) return;
 
   const toast = document.createElement('div');
-  toast.className = 'flex items-center gap-2.5 px-4 py-3 rounded-xl bg-slate-900/95 border border-indigo-500/40 text-slate-100 text-xs font-medium shadow-2xl shadow-indigo-500/20 backdrop-blur-xl transform translate-y-[-10px] opacity-0 transition-all duration-300';
+  toast.className = 'flex items-center gap-2.5 px-4 py-3 rounded-xl bg-white/95 border border-emerald-500/30 text-slate-800 text-xs font-semibold shadow-xl shadow-emerald-600/10 backdrop-blur-xl transform translate-y-[-10px] opacity-0 transition-all duration-300';
   toast.innerHTML = `<span class="text-base">${icon}</span><span>${message}</span>`;
   container.appendChild(toast);
 
@@ -134,10 +134,10 @@ const app = document.querySelector<HTMLDivElement>('#app')!;
 
 app.innerHTML = `
   <!-- Ambient Luminous Backgrounds -->
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute -top-40 -left-40 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[140px]"></div>
-    <div class="absolute top-1/3 -right-40 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[160px]"></div>
-    <div class="absolute -bottom-40 left-1/3 w-[600px] h-[600px] bg-cyan-600/08 rounded-full blur-[150px]"></div>
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-slate-50/70">
+    <div class="absolute -top-40 -left-40 w-[600px] h-[600px] bg-emerald-200/25 rounded-full blur-[140px]"></div>
+    <div class="absolute top-1/3 -right-40 w-[600px] h-[600px] bg-green-200/20 rounded-full blur-[160px]"></div>
+    <div class="absolute -bottom-40 left-1/3 w-[600px] h-[600px] bg-emerald-100/30 rounded-full blur-[150px]"></div>
   </div>
 
   <!-- Toast Container -->
@@ -147,46 +147,46 @@ app.innerHTML = `
   <div class="relative z-10 min-h-screen flex flex-col">
     
     <!-- Navigation Bar -->
-    <header class="border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-xl sticky top-0 z-40 px-4 sm:px-6 py-3.5 print:hidden transition-all">
+    <header class="border-b border-slate-200/80 bg-white/85 backdrop-blur-xl sticky top-0 z-40 px-4 sm:px-6 py-3.5 print:hidden transition-all shadow-xs">
       <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
         
         <!-- Brand -->
         <div class="flex items-center gap-3">
           <div class="relative group">
-            <div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-300"></div>
-            <div class="relative w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center border border-slate-700/60 shadow-lg text-lg">
+            <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-green-600 rounded-xl blur opacity-30 group-hover:opacity-75 transition duration-300"></div>
+            <div class="relative w-10 h-10 rounded-xl bg-white flex items-center justify-center border border-emerald-200 shadow-md text-lg text-emerald-600 font-bold">
               ✨
             </div>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent">
-                CareerForge AI
+              <span class="text-lg font-extrabold tracking-tight text-slate-900">
+                CareerForge <span class="text-emerald-600">AI</span>
               </span>
-              <span class="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 text-indigo-300">
+              <span class="text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700">
                 PRO STUDIO
               </span>
             </div>
-            <p class="text-[11px] text-slate-400 hidden sm:block">ATS-Engineered CV & Customized Application Letters with Gemini</p>
+            <p class="text-[11px] text-slate-500 hidden sm:block">ATS-Engineered CV & Tailored Cover Letters with Gemini</p>
           </div>
         </div>
 
         <!-- Action Controls -->
         <div class="flex items-center gap-2.5">
           <!-- API Key Settings Button -->
-          <button id="apiKeyModalBtn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800/90 border border-slate-800 hover:border-indigo-500/50 text-slate-300 transition-all flex items-center gap-2 cursor-pointer shadow-sm">
-            <span id="apiKeyStatusDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <button id="apiKeyModalBtn" class="text-xs px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-emerald-400 text-slate-700 transition-all flex items-center gap-2 cursor-pointer shadow-xs">
+            <span id="apiKeyStatusDot" class="w-2 h-2 rounded-full bg-slate-400"></span>
             <span id="apiKeyBtnLabel">Gemini API Key</span>
           </button>
 
           <!-- Sample Profile Button -->
-          <button id="sampleBtn" class="text-xs px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600/30 to-purple-600/30 hover:from-indigo-600/50 hover:to-purple-600/50 border border-indigo-500/40 text-indigo-200 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm hover:shadow-indigo-500/20">
+          <button id="sampleBtn" class="text-xs px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-300 text-emerald-800 font-semibold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs hover:shadow-emerald-500/10">
             <span>⚡</span>
             <span>Load Sample</span>
           </button>
 
           <!-- Clear Button -->
-          <button id="clearBtn" title="Reset Form" class="text-xs px-2.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800 transition cursor-pointer">
+          <button id="clearBtn" title="Reset Form" class="text-xs px-2.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-800 border border-slate-200 transition cursor-pointer shadow-xs">
             ↺
           </button>
         </div>
@@ -201,118 +201,118 @@ app.innerHTML = `
       <section class="lg:col-span-6 flex flex-col gap-5 print:hidden">
 
         <!-- Card 1: Candidate Identity -->
-        <div class="group bg-slate-900/60 backdrop-blur-xl border border-slate-800/90 hover:border-slate-700/80 rounded-2xl p-5 shadow-xl transition-all duration-200">
-          <div class="flex items-center justify-between mb-3.5 pb-2.5 border-b border-slate-800/80">
-            <div class="flex items-center gap-2 text-indigo-400 font-semibold text-xs uppercase tracking-wider">
-              <span class="w-5 h-5 rounded-md bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs">1</span>
+        <div class="group bg-white border border-slate-200/90 hover:border-emerald-300 rounded-2xl p-5 shadow-xs hover:shadow-md hover:shadow-emerald-500/5 transition-all duration-200">
+          <div class="flex items-center justify-between mb-3.5 pb-2.5 border-b border-slate-100">
+            <div class="flex items-center gap-2 text-emerald-700 font-semibold text-xs uppercase tracking-wider">
+              <span class="w-5 h-5 rounded-md bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-bold">1</span>
               <span>Candidate Identity & Contact</span>
             </div>
-            <span class="text-[11px] text-slate-500">Contact Header</span>
+            <span class="text-[11px] text-slate-400">Contact Header</span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label class="block text-[11px] font-medium text-slate-400 mb-1">Full Name</label>
-              <input id="fullName" type="text" placeholder="e.g. Alex Morgan" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600" />
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Full Name</label>
+              <input id="fullName" type="text" placeholder="e.g. Alex Morgan" class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs" />
             </div>
             <div>
-              <label class="block text-[11px] font-medium text-slate-400 mb-1">Email Address</label>
-              <input id="email" type="email" placeholder="alex.morgan@example.com" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600" />
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Email Address</label>
+              <input id="email" type="email" placeholder="alex.morgan@example.com" class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs" />
             </div>
             <div>
-              <label class="block text-[11px] font-medium text-slate-400 mb-1">Phone Number</label>
-              <input id="phone" type="text" placeholder="+1 (555) 432-8765" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600" />
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Phone Number</label>
+              <input id="phone" type="text" placeholder="+1 (555) 432-8765" class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs" />
             </div>
             <div>
-              <label class="block text-[11px] font-medium text-slate-400 mb-1">Location / Remote Status</label>
-              <input id="location" type="text" placeholder="San Francisco, CA (Open to Remote)" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600" />
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Location / Remote Status</label>
+              <input id="location" type="text" placeholder="San Francisco, CA (Open to Remote)" class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs" />
             </div>
             <div class="sm:col-span-2">
-              <label class="block text-[11px] font-medium text-slate-400 mb-1">Portfolio, LinkedIn & GitHub Links</label>
-              <input id="links" type="text" placeholder="linkedin.com/in/username | github.com/username" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600" />
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Portfolio, LinkedIn & GitHub Links</label>
+              <input id="links" type="text" placeholder="linkedin.com/in/username | github.com/username" class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs" />
             </div>
           </div>
         </div>
 
         <!-- Card 2: Professional Background & Skills -->
-        <div class="group bg-slate-900/60 backdrop-blur-xl border border-slate-800/90 hover:border-slate-700/80 rounded-2xl p-5 shadow-xl transition-all duration-200 space-y-3.5">
-          <div class="flex items-center justify-between pb-2.5 border-b border-slate-800/80">
-            <div class="flex items-center gap-2 text-indigo-400 font-semibold text-xs uppercase tracking-wider">
-              <span class="w-5 h-5 rounded-md bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs">2</span>
+        <div class="group bg-white border border-slate-200/90 hover:border-emerald-300 rounded-2xl p-5 shadow-xs hover:shadow-md hover:shadow-emerald-500/5 transition-all duration-200 space-y-3.5">
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
+            <div class="flex items-center gap-2 text-emerald-700 font-semibold text-xs uppercase tracking-wider">
+              <span class="w-5 h-5 rounded-md bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-bold">2</span>
               <span>Experience & Qualifications</span>
             </div>
-            <span class="text-[11px] text-slate-500">Core Content</span>
+            <span class="text-[11px] text-slate-400">Core Content</span>
           </div>
 
           <div>
-            <label class="block text-[11px] font-medium text-slate-400 mb-1">Professional Headline / Current Role</label>
-            <input id="headline" type="text" placeholder="e.g. Senior Full-Stack Engineer & Cloud Architect" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600" />
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Professional Headline / Current Role</label>
+            <input id="headline" type="text" placeholder="e.g. Senior Full-Stack Engineer & Cloud Architect" class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs" />
           </div>
 
           <div>
-            <label class="block text-[11px] font-medium text-slate-400 mb-1">Professional Summary / Bio</label>
-            <textarea id="summary" rows="2" placeholder="Describe your career focus, superpowers, and high-level trajectory..." class="w-full bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600 resize-y"></textarea>
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Professional Summary / Bio</label>
+            <textarea id="summary" rows="2" placeholder="Describe your career focus, superpowers, and high-level trajectory..." class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs resize-y"></textarea>
           </div>
 
           <div>
-            <label class="block text-[11px] font-medium text-slate-400 mb-1">Work History & Impactful Achievements</label>
-            <textarea id="experience" rows="5" placeholder="• Role & Company (Year - Present):&#10;  - Quantifiable achievement or feature built...&#10;  - Metric-driven impact or architectural leadership..." class="w-full bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600 resize-y font-mono text-[11.5px]"></textarea>
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Work History & Impactful Achievements</label>
+            <textarea id="experience" rows="5" placeholder="• Role & Company (Year - Present):&#10;  - Quantifiable achievement or feature built...&#10;  - Metric-driven impact or architectural leadership..." class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs resize-y font-mono text-[11.5px]"></textarea>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label class="block text-[11px] font-medium text-slate-400 mb-1">Education & Certifications</label>
-              <textarea id="education" rows="2" placeholder="• B.S. in Computer Science - UC Berkeley&#10;• AWS Certified Solutions Architect" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600 resize-y"></textarea>
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Education & Certifications</label>
+              <textarea id="education" rows="2" placeholder="• B.S. in Computer Science - UC Berkeley&#10;• AWS Certified Solutions Architect" class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs resize-y"></textarea>
             </div>
             <div>
-              <label class="block text-[11px] font-medium text-slate-400 mb-1">Skills, Frameworks & Tools</label>
-              <textarea id="skills" rows="2" placeholder="TypeScript, React, Python, Docker, AWS, PostgreSQL..." class="w-full bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600 resize-y"></textarea>
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Skills, Frameworks & Tools</label>
+              <textarea id="skills" rows="2" placeholder="TypeScript, React, Python, Docker, AWS, PostgreSQL..." class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs resize-y"></textarea>
             </div>
           </div>
         </div>
 
         <!-- Card 3: Target Opportunity & Tone -->
-        <div class="group bg-slate-900/60 backdrop-blur-xl border border-slate-800/90 hover:border-slate-700/80 rounded-2xl p-5 shadow-xl transition-all duration-200 space-y-3.5">
-          <div class="flex items-center justify-between pb-2.5 border-b border-slate-800/80">
-            <div class="flex items-center gap-2 text-indigo-400 font-semibold text-xs uppercase tracking-wider">
-              <span class="w-5 h-5 rounded-md bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xs">3</span>
+        <div class="group bg-white border border-slate-200/90 hover:border-emerald-300 rounded-2xl p-5 shadow-xs hover:shadow-md hover:shadow-emerald-500/5 transition-all duration-200 space-y-3.5">
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
+            <div class="flex items-center gap-2 text-emerald-700 font-semibold text-xs uppercase tracking-wider">
+              <span class="w-5 h-5 rounded-md bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-bold">3</span>
               <span>Target Role & Strategic Tone</span>
             </div>
-            <span class="text-[11px] text-slate-500">Matching Focus</span>
+            <span class="text-[11px] text-slate-400">Matching Focus</span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label class="block text-[11px] font-medium text-slate-400 mb-1">Target Position</label>
-              <input id="jobTitle" type="text" placeholder="e.g. Staff Full-Stack Engineer" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600" />
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Target Position</label>
+              <input id="jobTitle" type="text" placeholder="e.g. Staff Full-Stack Engineer" class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs" />
             </div>
             <div>
-              <label class="block text-[11px] font-medium text-slate-400 mb-1">Company Name</label>
-              <input id="companyName" type="text" placeholder="e.g. Stripe" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600" />
+              <label class="block text-[11px] font-semibold text-slate-700 mb-1">Company Name</label>
+              <input id="companyName" type="text" placeholder="e.g. Stripe" class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs" />
             </div>
           </div>
 
           <!-- Interactive Tone Selector Pills -->
           <div>
-            <label class="block text-[11px] font-medium text-slate-400 mb-1.5">Writing Tone & Narrative Style</label>
+            <label class="block text-[11px] font-semibold text-slate-700 mb-1.5">Writing Tone & Narrative Style</label>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="tonePillContainer">
-              <button type="button" data-tone="Professional and confident" class="tone-pill active px-3 py-2 rounded-xl text-xs font-medium border text-left flex items-center gap-2 transition-all cursor-pointer bg-indigo-600/25 border-indigo-500/80 text-white shadow-sm shadow-indigo-500/20">
+              <button type="button" data-tone="Professional and confident" class="tone-pill active px-3 py-2 rounded-xl text-xs font-semibold border text-left flex items-center gap-2 transition-all cursor-pointer bg-emerald-50 border-emerald-500 text-emerald-800 shadow-xs shadow-emerald-500/10">
                 <span>👔</span>
                 <span class="truncate">Confident & Pro</span>
               </button>
-              <button type="button" data-tone="Modern and impact-driven" class="tone-pill px-3 py-2 rounded-xl text-xs font-medium border text-left flex items-center gap-2 transition-all cursor-pointer bg-slate-950/50 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700">
+              <button type="button" data-tone="Modern and impact-driven" class="tone-pill px-3 py-2 rounded-xl text-xs font-medium border text-left flex items-center gap-2 transition-all cursor-pointer bg-white border-slate-200 text-slate-600 hover:text-emerald-700 hover:border-emerald-300 hover:bg-emerald-50/30 shadow-xs">
                 <span>🚀</span>
                 <span class="truncate">Impact-Driven</span>
               </button>
-              <button type="button" data-tone="Executive and formal" class="tone-pill px-3 py-2 rounded-xl text-xs font-medium border text-left flex items-center gap-2 transition-all cursor-pointer bg-slate-950/50 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700">
+              <button type="button" data-tone="Executive and formal" class="tone-pill px-3 py-2 rounded-xl text-xs font-medium border text-left flex items-center gap-2 transition-all cursor-pointer bg-white border-slate-200 text-slate-600 hover:text-emerald-700 hover:border-emerald-300 hover:bg-emerald-50/30 shadow-xs">
                 <span>💼</span>
                 <span class="truncate">Executive</span>
               </button>
-              <button type="button" data-tone="Creative and enthusiastic" class="tone-pill px-3 py-2 rounded-xl text-xs font-medium border text-left flex items-center gap-2 transition-all cursor-pointer bg-slate-950/50 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700">
+              <button type="button" data-tone="Creative and enthusiastic" class="tone-pill px-3 py-2 rounded-xl text-xs font-medium border text-left flex items-center gap-2 transition-all cursor-pointer bg-white border-slate-200 text-slate-600 hover:text-emerald-700 hover:border-emerald-300 hover:bg-emerald-50/30 shadow-xs">
                 <span>💡</span>
                 <span class="truncate">Creative</span>
               </button>
-              <button type="button" data-tone="Concise and direct" class="tone-pill px-3 py-2 rounded-xl text-xs font-medium border text-left flex items-center gap-2 transition-all cursor-pointer bg-slate-950/50 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700">
+              <button type="button" data-tone="Concise and direct" class="tone-pill px-3 py-2 rounded-xl text-xs font-medium border text-left flex items-center gap-2 transition-all cursor-pointer bg-white border-slate-200 text-slate-600 hover:text-emerald-700 hover:border-emerald-300 hover:bg-emerald-50/30 shadow-xs">
                 <span>⚡</span>
                 <span class="truncate">Concise</span>
               </button>
@@ -321,22 +321,22 @@ app.innerHTML = `
 
           <div>
             <div class="flex items-center justify-between mb-1">
-              <label class="block text-[11px] font-medium text-slate-400">
-                Job Description & Key Requirements <span class="text-rose-400">*</span>
+              <label class="block text-[11px] font-semibold text-slate-700">
+                Job Description & Key Requirements <span class="text-rose-500">*</span>
               </label>
-              <span id="jdCharCount" class="text-[10px] text-slate-500">0 words</span>
+              <span id="jdCharCount" class="text-[10px] text-slate-400">0 words</span>
             </div>
-            <textarea id="jobDescription" rows="5" placeholder="Paste the target job description or requirements here..." class="w-full bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition placeholder:text-slate-600 resize-y"></textarea>
+            <textarea id="jobDescription" rows="5" placeholder="Paste the target job description or requirements here..." class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl p-3 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition placeholder:text-slate-400 shadow-xs resize-y"></textarea>
           </div>
         </div>
 
         <!-- Primary CTA Generate Button -->
         <div class="relative group">
-          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-40 group-hover:opacity-80 transition duration-300"></div>
-          <button id="generateBtn" class="relative w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-bold py-4 px-6 rounded-2xl shadow-xl transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer text-sm tracking-wide">
+          <div class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-600 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+          <button id="generateBtn" class="relative w-full bg-gradient-to-r from-emerald-600 via-emerald-500 to-green-600 hover:from-emerald-700 hover:via-emerald-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-emerald-600/25 transition-all duration-200 flex items-center justify-center gap-3 cursor-pointer text-sm tracking-wide">
             <span id="btnIcon" class="text-lg">✨</span>
             <span id="btnText">Generate Tailored CV & Application Letter</span>
-            <span class="hidden sm:inline-block text-[11px] font-normal px-2 py-0.5 rounded-md bg-white/10 text-white/80">Ctrl + Enter</span>
+            <span class="hidden sm:inline-block text-[11px] font-medium px-2 py-0.5 rounded-md bg-white/20 text-white">Ctrl + Enter</span>
           </button>
         </div>
 
@@ -344,20 +344,20 @@ app.innerHTML = `
 
       <!-- Right Column: Document Preview & Output Studio -->
       <section class="lg:col-span-6 flex flex-col h-full lg:sticky lg:top-20">
-        <div class="bg-slate-900/70 backdrop-blur-xl border border-slate-800/90 rounded-3xl flex flex-col min-h-[700px] shadow-2xl overflow-hidden">
+        <div class="bg-white border border-slate-200/90 rounded-3xl flex flex-col min-h-[700px] shadow-lg shadow-slate-200/50 overflow-hidden">
           
           <!-- Studio Top Toolbar -->
-          <div class="border-b border-slate-800/80 bg-slate-950/60 p-3.5 flex flex-wrap items-center justify-between gap-3 print:hidden">
+          <div class="border-b border-slate-200 bg-slate-50/80 p-3.5 flex flex-wrap items-center justify-between gap-3 print:hidden">
             
             <!-- Document Tabs -->
-            <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
-              <button id="tabLetter" class="tab-btn active px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-indigo-600 text-white cursor-pointer shadow-sm">
+            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+              <button id="tabLetter" class="tab-btn active px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-emerald-600 text-white cursor-pointer shadow-sm">
                 ✉️ Cover Letter
               </button>
-              <button id="tabCv" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition cursor-pointer">
+              <button id="tabCv" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition cursor-pointer">
                 📄 Tailored CV
               </button>
-              <button id="tabHighlights" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 transition cursor-pointer">
+              <button id="tabHighlights" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 transition cursor-pointer">
                 🎯 Match Insights
               </button>
             </div>
@@ -365,29 +365,29 @@ app.innerHTML = `
             <!-- View Switcher & Actions -->
             <div class="flex items-center gap-2">
               <!-- View Mode Toggle (Formatted vs Raw) -->
-              <div class="flex items-center bg-slate-900/80 p-0.5 rounded-lg border border-slate-800 text-[11px]">
-                <button id="viewFormattedBtn" class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 font-medium transition cursor-pointer">
+              <div class="flex items-center bg-slate-200/80 p-0.5 rounded-lg border border-slate-300/60 text-[11px]">
+                <button id="viewFormattedBtn" class="px-2.5 py-1 rounded-md bg-white text-slate-800 font-semibold transition cursor-pointer shadow-xs">
                   Styled
                 </button>
-                <button id="viewRawBtn" class="px-2.5 py-1 rounded-md text-slate-400 hover:text-slate-200 transition cursor-pointer">
+                <button id="viewRawBtn" class="px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900 transition cursor-pointer">
                   Markdown
                 </button>
               </div>
 
               <!-- Copy Button -->
-              <button id="copyBtn" title="Copy to clipboard" class="text-xs px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition flex items-center gap-1.5 cursor-pointer border border-slate-700/60 hover:border-slate-600">
+              <button id="copyBtn" title="Copy to clipboard" class="text-xs px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 transition flex items-center gap-1.5 cursor-pointer border border-slate-200 hover:border-emerald-300 shadow-xs">
                 <span id="copyIcon">📋</span>
                 <span id="copyText">Copy</span>
               </button>
 
               <!-- Download Button -->
-              <button id="downloadBtn" title="Download active document" class="text-xs px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition flex items-center gap-1.5 cursor-pointer border border-slate-700/60 hover:border-slate-600">
+              <button id="downloadBtn" title="Download active document" class="text-xs px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 transition flex items-center gap-1.5 cursor-pointer border border-slate-200 hover:border-emerald-300 shadow-xs">
                 <span>📥</span>
                 <span class="hidden sm:inline">Export</span>
               </button>
 
               <!-- Print / PDF Button -->
-              <button id="printBtn" title="Print / PDF" class="text-xs px-2.5 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition flex items-center gap-1 cursor-pointer border border-slate-700/60 hover:border-slate-600">
+              <button id="printBtn" title="Print / PDF" class="text-xs px-2.5 py-1.5 rounded-xl bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 transition flex items-center gap-1 cursor-pointer border border-slate-200 hover:border-emerald-300 shadow-xs">
                 <span>🖨️</span>
               </button>
             </div>
@@ -395,40 +395,40 @@ app.innerHTML = `
           </div>
 
           <!-- Document Workspace -->
-          <div class="p-6 sm:p-8 flex-1 overflow-y-auto relative bg-gradient-to-b from-slate-900/30 to-slate-950/30">
+          <div class="p-6 sm:p-8 flex-1 overflow-y-auto relative bg-slate-50/40">
             
             <!-- Empty State -->
             <div id="emptyState" class="h-full min-h-[480px] flex flex-col items-center justify-center text-center p-6 space-y-6">
               <div class="relative">
-                <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-500/20 via-purple-500/10 to-pink-500/20 border border-indigo-500/30 flex items-center justify-center text-4xl shadow-xl shadow-indigo-500/10">
+                <div class="w-20 h-20 rounded-3xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-4xl shadow-md shadow-emerald-500/10">
                   📁
                 </div>
-                <div class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-indigo-600 border-2 border-slate-900 flex items-center justify-center text-xs">
+                <div class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-600 border-2 border-white flex items-center justify-center text-xs text-white">
                   ✨
                 </div>
               </div>
 
               <div class="max-w-sm space-y-2">
-                <h3 class="text-lg font-bold text-slate-100">Ready to Engineer Your Application</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                  Fill in your credentials or click <strong class="text-indigo-400 font-semibold cursor-pointer hover:underline" id="emptySampleTrigger">Load Sample Profile</strong> to preview an executive tailored package.
+                <h3 class="text-lg font-bold text-slate-800">Ready to Engineer Your Application</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                  Fill in your credentials or click <strong class="text-emerald-700 font-semibold cursor-pointer hover:underline" id="emptySampleTrigger">Load Sample Profile</strong> to preview an executive tailored package.
                 </p>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-md pt-2">
-                <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-center">
+                <div class="p-3 rounded-xl bg-white border border-slate-200 text-center shadow-xs">
                   <div class="text-sm mb-1">🎯</div>
-                  <div class="text-[11px] font-semibold text-slate-300">98% ATS Fit</div>
+                  <div class="text-[11px] font-bold text-slate-800">98% ATS Fit</div>
                   <div class="text-[10px] text-slate-500">Keyword aligned</div>
                 </div>
-                <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-center">
+                <div class="p-3 rounded-xl bg-white border border-slate-200 text-center shadow-xs">
                   <div class="text-sm mb-1">⚡</div>
-                  <div class="text-[11px] font-semibold text-slate-300">Custom Story</div>
+                  <div class="text-[11px] font-bold text-slate-800">Custom Story</div>
                   <div class="text-[10px] text-slate-500">Zero clichés</div>
                 </div>
-                <div class="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-center">
+                <div class="p-3 rounded-xl bg-white border border-slate-200 text-center shadow-xs">
                   <div class="text-sm mb-1">📄</div>
-                  <div class="text-[11px] font-semibold text-slate-300">Dual Export</div>
+                  <div class="text-[11px] font-bold text-slate-800">Dual Export</div>
                   <div class="text-[10px] text-slate-500">Markdown & PDF</div>
                 </div>
               </div>
@@ -436,42 +436,42 @@ app.innerHTML = `
 
             <!-- Content Area -->
             <div id="outputContainer" class="hidden">
-              <div id="docStatsBar" class="mb-4 pb-3 border-b border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+              <div id="docStatsBar" class="mb-4 pb-3 border-b border-slate-200 flex items-center justify-between text-[11px] text-slate-500">
                 <div class="flex items-center gap-2">
-                  <span id="docTypeBadge" class="px-2 py-0.5 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800/60 font-medium">Cover Letter</span>
+                  <span id="docTypeBadge" class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold">Cover Letter</span>
                   <span id="docWordCount">0 words</span>
                 </div>
                 <div id="docReadingTime">~1 min read</div>
               </div>
 
               <!-- Formatted Mode -->
-              <div id="formattedOutput" class="text-slate-200 leading-relaxed text-sm print:text-black"></div>
+              <div id="formattedOutput" class="text-slate-800 leading-relaxed text-sm print:text-black"></div>
 
               <!-- Raw Markdown Mode -->
               <div id="rawOutput" class="hidden">
-                <pre id="rawContent" class="text-xs font-mono text-slate-300 bg-slate-950 p-5 rounded-2xl border border-slate-800 overflow-x-auto whitespace-pre-wrap leading-relaxed"></pre>
+                <pre id="rawContent" class="text-xs font-mono text-slate-800 bg-slate-50 p-5 rounded-2xl border border-slate-200 overflow-x-auto whitespace-pre-wrap leading-relaxed shadow-xs"></pre>
               </div>
             </div>
 
             <!-- Animated Multi-Stage Loading Overlay -->
-            <div id="loadingOverlay" class="hidden absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-8 z-30 space-y-6">
+            <div id="loadingOverlay" class="hidden absolute inset-0 bg-white/95 backdrop-blur-md flex flex-col items-center justify-center p-8 z-30 space-y-6">
               <div class="relative w-16 h-16">
-                <div class="absolute inset-0 rounded-full border-4 border-indigo-500/20 border-t-indigo-500 animate-spin"></div>
-                <div class="absolute inset-2 rounded-full border-4 border-purple-500/20 border-t-purple-500 animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
-                <div class="absolute inset-0 flex items-center justify-center text-lg">✨</div>
+                <div class="absolute inset-0 rounded-full border-4 border-emerald-500/20 border-t-emerald-600 animate-spin"></div>
+                <div class="absolute inset-2 rounded-full border-4 border-green-500/20 border-t-green-500 animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+                <div class="absolute inset-0 flex items-center justify-center text-lg text-emerald-600 font-bold">✨</div>
               </div>
 
               <div class="text-center space-y-2 max-w-sm">
-                <h4 id="loadingStepTitle" class="text-sm font-bold text-slate-100 animate-pulse">
+                <h4 id="loadingStepTitle" class="text-sm font-bold text-slate-800 animate-pulse">
                   Analyzing Job Description Requirements...
                 </h4>
-                <p id="loadingStepDesc" class="text-xs text-slate-400 leading-relaxed">
+                <p id="loadingStepDesc" class="text-xs text-slate-500 leading-relaxed">
                   Extracting core keywords, requirements, and company mission...
                 </p>
               </div>
 
-              <div class="w-48 bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-800">
-                <div id="loadingProgressBar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-700 w-1/4"></div>
+              <div class="w-48 bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200">
+                <div id="loadingProgressBar" class="h-full bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 rounded-full transition-all duration-700 w-1/4 shadow-sm"></div>
               </div>
             </div>
 
@@ -484,54 +484,54 @@ app.innerHTML = `
   </div>
 
   <!-- API Key Modal (BYOK) -->
-  <div id="apiKeyModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-    <div class="bg-slate-900 border border-slate-700/80 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-5 relative">
-      <button id="closeApiKeyModal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-200 text-lg cursor-pointer">✕</button>
+  <div id="apiKeyModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
+    <div class="bg-white border border-slate-200 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-5 relative">
+      <button id="closeApiKeyModal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-lg cursor-pointer">✕</button>
       
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-xl">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-xl text-emerald-600">
           🔑
         </div>
         <div>
-          <h3 class="text-base font-bold text-white">Google Gemini API Key</h3>
-          <p class="text-xs text-slate-400">Bring your own key for unlimited free usage</p>
+          <h3 class="text-base font-bold text-slate-900">Google Gemini API Key</h3>
+          <p class="text-xs text-slate-500">Bring your own key for unlimited free usage</p>
         </div>
       </div>
 
       <div class="space-y-3">
         <div>
-          <label class="block text-xs font-medium text-slate-300 mb-1">Your API Key</label>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Your API Key</label>
           <div class="relative">
-            <input id="apiKeyInput" type="password" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 pr-10 font-mono" />
-            <button id="toggleKeyVisibility" type="button" class="absolute right-3 top-2.5 text-slate-500 hover:text-slate-300 text-xs cursor-pointer">👁️</button>
+            <input id="apiKeyInput" type="password" placeholder="AIzaSy..." class="w-full bg-slate-50/60 focus:bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 pr-10 font-mono shadow-xs" />
+            <button id="toggleKeyVisibility" type="button" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 text-xs cursor-pointer">👁️</button>
           </div>
         </div>
 
-        <div class="p-3 rounded-xl bg-indigo-950/40 border border-indigo-800/40 text-[11px] text-slate-300 space-y-1">
-          <div class="font-semibold text-indigo-300 flex items-center gap-1.5">
+        <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 text-[11px] text-slate-700 space-y-1.5">
+          <div class="font-semibold text-emerald-800 flex items-center gap-1.5">
             <span>💡</span> How to get a free key in 30 seconds:
           </div>
-          <p class="text-slate-400">
-            1. Visit <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-indigo-400 underline font-medium hover:text-indigo-300">Google AI Studio</a>.
+          <p class="text-slate-600">
+            1. Visit <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-emerald-700 underline font-semibold hover:text-emerald-800">Google AI Studio</a>.
           </p>
-          <p class="text-slate-400">
+          <p class="text-slate-600">
             2. Click <strong>"Create API Key"</strong> (100% free with no credit card required).
           </p>
-          <p class="text-slate-400">
+          <p class="text-slate-600">
             3. Paste it here. Your key stays in your browser's private storage only.
           </p>
         </div>
       </div>
 
       <div class="flex items-center justify-between gap-3 pt-2">
-        <button id="removeApiKeyBtn" class="text-xs px-3.5 py-2 rounded-xl text-rose-400 hover:bg-rose-950/40 border border-rose-900/40 transition cursor-pointer">
+        <button id="removeApiKeyBtn" class="text-xs px-3.5 py-2 rounded-xl text-rose-600 hover:bg-rose-50 border border-rose-200 transition cursor-pointer">
           Remove Key
         </button>
         <div class="flex items-center gap-2">
-          <button id="cancelApiKeyBtn" class="text-xs px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 border border-slate-800 hover:bg-slate-800 transition cursor-pointer">
+          <button id="cancelApiKeyBtn" class="text-xs px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 border border-slate-200 hover:bg-slate-50 transition cursor-pointer">
             Cancel
           </button>
-          <button id="saveApiKeyBtn" class="text-xs px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition cursor-pointer shadow-md shadow-indigo-600/30">
+          <button id="saveApiKeyBtn" class="text-xs px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition cursor-pointer shadow-md shadow-emerald-600/20">
             Save Key
           </button>
         </div>
@@ -614,11 +614,11 @@ jobDescriptionInput.addEventListener('input', () => {
 document.querySelectorAll<HTMLButtonElement>('.tone-pill').forEach(pill => {
   pill.addEventListener('click', () => {
     document.querySelectorAll<HTMLButtonElement>('.tone-pill').forEach(p => {
-      p.classList.remove('active', 'bg-indigo-600/25', 'border-indigo-500/80', 'text-white', 'shadow-sm', 'shadow-indigo-500/20');
-      p.classList.add('bg-slate-950/50', 'border-slate-800', 'text-slate-400');
+      p.classList.remove('active', 'bg-emerald-50', 'border-emerald-500', 'text-emerald-800', 'shadow-xs', 'shadow-emerald-500/10');
+      p.classList.add('bg-white', 'border-slate-200', 'text-slate-600');
     });
-    pill.classList.add('active', 'bg-indigo-600/25', 'border-indigo-500/80', 'text-white', 'shadow-sm', 'shadow-indigo-500/20');
-    pill.classList.remove('bg-slate-950/50', 'border-slate-800', 'text-slate-400');
+    pill.classList.add('active', 'bg-emerald-50', 'border-emerald-500', 'text-emerald-800', 'shadow-xs', 'shadow-emerald-500/10');
+    pill.classList.remove('bg-white', 'border-slate-200', 'text-slate-600');
     selectedTone = pill.dataset.tone || 'Professional and confident';
   });
 });
@@ -665,10 +665,10 @@ clearBtn.addEventListener('click', () => {
 function updateApiKeyStatusBadge() {
   const key = getSavedApiKey();
   if (key) {
-    apiKeyStatusDot.className = 'w-2 h-2 rounded-full bg-emerald-400';
+    apiKeyStatusDot.className = 'w-2 h-2 rounded-full bg-emerald-500';
     apiKeyBtnLabel.textContent = 'Custom API Key';
   } else {
-    apiKeyStatusDot.className = 'w-2 h-2 rounded-full bg-indigo-400';
+    apiKeyStatusDot.className = 'w-2 h-2 rounded-full bg-slate-400';
     apiKeyBtnLabel.textContent = 'API Key (Server)';
   }
 }
@@ -718,8 +718,8 @@ function renderActiveTab() {
 
   // Reset tab button styles
   [tabLetter, tabCv, tabHighlights].forEach(b => {
-    b.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
-    b.classList.add('text-slate-400');
+    b.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+    b.classList.add('text-slate-600');
   });
 
   emptyState.classList.add('hidden');
@@ -729,18 +729,18 @@ function renderActiveTab() {
   let badgeLabel = '';
 
   if (activeTab === 'letter') {
-    tabLetter.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
-    tabLetter.classList.remove('text-slate-400');
+    tabLetter.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+    tabLetter.classList.remove('text-slate-600');
     activeContent = currentData.coverLetter;
     badgeLabel = 'Application Cover Letter';
   } else if (activeTab === 'cv') {
-    tabCv.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
-    tabCv.classList.remove('text-slate-400');
+    tabCv.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+    tabCv.classList.remove('text-slate-600');
     activeContent = currentData.cv;
     badgeLabel = 'Tailored ATS CV';
   } else if (activeTab === 'highlights') {
-    tabHighlights.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
-    tabHighlights.classList.remove('text-slate-400');
+    tabHighlights.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+    tabHighlights.classList.remove('text-slate-600');
     badgeLabel = 'Match Analysis';
   }
 
@@ -755,21 +755,21 @@ function renderActiveTab() {
   if (activeTab === 'highlights') {
     const highlightsHtml = `
       <div class="space-y-4">
-        <div class="border-b border-slate-800/80 pb-3">
-          <h2 class="text-base font-bold text-white flex items-center gap-2">
+        <div class="border-b border-slate-200 pb-3">
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
             <span>🎯</span> Job Alignment & Strategic Strengths
           </h2>
-          <p class="text-xs text-slate-400">These key competencies directly answer the primary qualifications in the job description:</p>
+          <p class="text-xs text-slate-500">These key competencies directly answer the primary qualifications in the job description:</p>
         </div>
         <div class="space-y-3 pt-1">
           ${(currentData.matchHighlights || []).map((highlight, idx) => `
-            <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 hover:border-indigo-500/50 transition duration-200 flex items-start gap-3.5 shadow-sm">
-              <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 shadow-md shadow-indigo-600/30">
+            <div class="p-4 rounded-2xl bg-emerald-50/40 border border-emerald-100 hover:border-emerald-300 transition duration-200 flex items-start gap-3.5 shadow-xs">
+              <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-emerald-600 to-green-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 shadow-sm shadow-emerald-600/30">
                 0${idx + 1}
               </div>
               <div class="space-y-1">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-400">Match Factor</span>
-                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">${highlight}</p>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Match Factor</span>
+                <p class="text-xs sm:text-sm text-slate-800 leading-relaxed font-normal">${highlight}</p>
               </div>
             </div>
           `).join('')}
@@ -778,6 +778,7 @@ function renderActiveTab() {
     `;
     formattedOutput.innerHTML = highlightsHtml;
     rawContent.textContent = (currentData.matchHighlights || []).map((h, i) => `${i + 1}. ${h}`).join('\n\n');
+  } else {
     formattedOutput.innerHTML = parseMarkdown(activeContent);
     rawContent.textContent = activeContent;
   }
@@ -808,20 +809,20 @@ tabHighlights.addEventListener('click', () => {
 // View mode switchers (Styled vs Raw Markdown)
 viewFormattedBtn.addEventListener('click', () => {
   viewMode = 'formatted';
-  viewFormattedBtn.classList.add('bg-slate-800', 'text-slate-200', 'font-medium');
-  viewFormattedBtn.classList.remove('text-slate-400');
-  viewRawBtn.classList.remove('bg-slate-800', 'text-slate-200', 'font-medium');
-  viewRawBtn.classList.add('text-slate-400');
+  viewFormattedBtn.classList.add('bg-white', 'text-slate-800', 'font-semibold', 'shadow-xs');
+  viewFormattedBtn.classList.remove('text-slate-600');
+  viewRawBtn.classList.remove('bg-white', 'text-slate-800', 'font-semibold', 'shadow-xs');
+  viewRawBtn.classList.add('text-slate-600');
   formattedOutput.classList.remove('hidden');
   rawOutput.classList.add('hidden');
 });
 
 viewRawBtn.addEventListener('click', () => {
   viewMode = 'raw';
-  viewRawBtn.classList.add('bg-slate-800', 'text-slate-200', 'font-medium');
-  viewRawBtn.classList.remove('text-slate-400');
-  viewFormattedBtn.classList.remove('bg-slate-800', 'text-slate-200', 'font-medium');
-  viewFormattedBtn.classList.add('text-slate-400');
+  viewRawBtn.classList.add('bg-white', 'text-slate-800', 'font-semibold', 'shadow-xs');
+  viewRawBtn.classList.remove('text-slate-600');
+  viewFormattedBtn.classList.remove('bg-white', 'text-slate-800', 'font-semibold', 'shadow-xs');
+  viewFormattedBtn.classList.add('text-slate-600');
   rawOutput.classList.remove('hidden');
   formattedOutput.classList.add('hidden');
 });

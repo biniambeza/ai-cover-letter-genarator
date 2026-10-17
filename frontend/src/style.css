@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+/* Custom modern emerald scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a7f3d0;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+/* Print optimizations */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+}
